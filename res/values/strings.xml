@@ -4,5 +4,7 @@
     <string name="app_name">Room_Surveillance_App</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="camera_btn">Camera</string>
 
 </resources>
