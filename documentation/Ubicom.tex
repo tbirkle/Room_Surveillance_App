@@ -1,0 +1,153 @@
+%
+% Praxissemester Bericht
+% Tobias Birkle
+% Vorlage: Sven Hodapp
+
+
+
+% -----------
+% 1. Präambel
+% -----------
+
+
+% Allgemeine Einstellungen
+% ------------------------
+\documentclass[
+	pdftex,%              PDFTex verwenden da wir ausschliesslich ein PDF erzeugen.
+	a4paper,%             Wir verwenden A4 Papier.
+	oneside,%             Einseitiger Druck.
+	12pt,%                Grosse Schrift, besser geeignet für A4.
+	halfparskip,%         Halbe Zeile Abstand zwischen Absätzen.
+	%chapterprefix,%       Kapitel mit 'Kapitel' anschreiben.
+	headsepline,%         Linie nach Kopfzeile.
+	footsepline,%         Linie vor Fusszeile.
+	bibtotocnumbered,%    Literaturverzeichnis im Inhaltsverzeichnis nummeriert einfügen.
+	idxtotoc%             Index ins Inhaltsverzeichnis einfügen.
+]{article}
+
+\usepackage[a4paper, includeheadfoot, bindingoffset=0cm, 
+left=2cm, right=2cm, top=2cm, bottom=2 cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy} 
+\renewcommand{\headrulewidth}{0pt}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}   % deutsche Silbentrennung
+\selectlanguage{german}   % damit Table Of Contents Inhaltsverzeichnis genannt wird
+
+\usepackage{geometry}   % Seitenränder einstellbar
+\usepackage{textcomp}   % Sonderzeichen, wie Eurosymbol
+
+
+% Absätze mit Leerzeile ohne Einrückung
+\newenvironment{absaetze}
+{\addtolength{\parskip}{\baselineskip}\parindent 0pt}
+{}
+
+
+% Bilder, Farben, farbige Tabellen
+% --------------------------------
+\usepackage{graphicx, color, colortbl}
+\usepackage{array}       % Erweiterte Tabelleneigenschaften.
+%\usepackage{floatflt}   % Bild kann von Text umflossen werden.
+
+
+
+% Palatino Schrift
+% ----------------
+%\usepackage[T1]{fontenc}
+%\usepackage[osf]{mathpazo}   % osf aktiviert Mediävalziffern/Minuskelziffern
+
+
+
+% Sonstige Pakete
+% ---------------
+%\usepackage{anysize}   % Seitenränder verändern
+%\usepackage{setspace}   % 1.5em Zeilenabstand \begin{onehalfspacing}
+%\usepackage{bibgerm}   % Anzeigestil des Literaturverzeichnis (gerabbrv)
+\usepackage{listings}  \lstset{numbers=left, numberstyle=\tiny, numbersep=20pt} % Programmcode einfügen
+\usepackage{subfigure}
+
+
+\renewcommand{\baselinestretch}{1.1}\normalsize
+% PDF Eigenschaften
+% -----------------
+\usepackage
+[
+	colorlinks=false,
+	bookmarks = true,
+	pdftitle={Room surveillance app},
+	pdfsubject={Documentation},
+	pdfkeywords={Documentation, Ubicom, Room surveillance},
+	pdfauthor={Benjamin Kugler, Tobias Birkle},
+	urlcolor=blue,
+	pdfstartview=FitH
+]{hyperref}
+
+
+
+\usepackage{float}
+
+% --------------------
+% 2. Dokumenten Anfang
+% --------------------
+
+\begin{document}
+
+
+% Deckblatt
+% ---------
+\begin{absaetze}
+\include{chapters/titlepage}
+
+
+
+
+
+\end{absaetze}
+
+\begin{absaetze}
+\renewcommand{\thepage}{\arabic{page}}
+\fancyfoot[CE, CO]{}
+
+\fancyfoot[RE, RO]{\thepage}
+\fancyhead[]{}
+
+
+\renewcommand{\thepage}{\Roman{page}}
+%\addcontentsline{toc}{section}{Kurzfassung}
+\end{absaetze}
+% Inhaltsverzeichnis anzeigen
+% ---------------------------
+\setcounter{page}{1}
+%\tableofcontents
+%\newpage
+%\listoffigures % Abbildungsverzeichnis
+%\listoftables
+
+
+
+
+% ---------
+% 3. Inhalt
+% ---------
+
+\begin{absaetze}
+\include{chapters/project_description}
+
+\end{absaetze}
+
+% Literaturverzeichnis
+% http://ctan.mackichan.com/macros/latex/exptl/biblatex/doc/biblatex.pdf - 2.1.1 Regular Types
+%\addcontentsline{toc}{section}{Literatur}
+%\bibliographystyle{gerabbrv}
+%\bibliographystyle{alpha}
+%\bibliographystyle{plain}
+%\bibliography{bib/references}
+
+\renewcommand{\thepage}{}
+\end{document}
+
+
