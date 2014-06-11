@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.github.Room_Surveillance_App.MainActivity$PlaceholderFragment" >
+    tools:context="com.github.Room_Surveillance_App.ImagesActivity$PlaceholderFragment" >
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,12 +14,12 @@
         android:text="@string/hello_world" />
 
     <Button
-        android:id="@+id/startImagesActivityBtn"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/images_activity" 
-        android:onClick="startImagesActivity" />
+        android:text="Button" 
+        android:onClick="startDownload" />
 
 </RelativeLayout>
