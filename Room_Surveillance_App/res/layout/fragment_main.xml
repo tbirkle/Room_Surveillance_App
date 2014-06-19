@@ -9,17 +9,29 @@
     tools:context="com.github.Room_Surveillance_App.MainActivity$PlaceholderFragment" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
     <Button
-        android:id="@+id/startImagesActivityBtn"
+        android:id="@+id/getImageBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/images_activity" 
-        android:onClick="startImagesActivity" />
-    
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="23dp"
+        android:onClick="startImagesActivity"
+        android:text="@string/getImage" />
+
+    <Button
+        android:id="@+id/galleryBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/getImageBtn"
+        android:layout_below="@+id/getImageBtn"
+        android:onClick="goToGallery"
+        android:text="@string/gallery" />
+
 </RelativeLayout>

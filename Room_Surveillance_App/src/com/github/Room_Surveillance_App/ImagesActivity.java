@@ -42,6 +42,8 @@ import android.widget.ImageView;
 
 
 
+import android.widget.Toast;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -74,17 +76,23 @@ public class ImagesActivity extends Activity {
 	
 	private String downloadUrl = "http://citiesofmigration.ca/wp-content/uploads/2011/02/test.jpg";
 	
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_images);
-		
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+//		DownloadImageTask downloadImage = new DownloadImageTask((ImageView) findViewById(R.id.imageView));
+//		Log.i("Async-Example", "create button called");
+//		
+//		downloadImage.execute(downloadUrl);
+		
+		
 	}
 	
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -138,13 +146,21 @@ public class ImagesActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			Log.i("Async-Example", "onPostExcecute");
-			bmImage.setImageBitmap(result);
+			if (result != null) {
+				bmImage.setImageBitmap(result);
+			} else
+			{
+				Toast.makeText(getApplicationContext(), "scheisse", Toast.LENGTH_LONG).show();;
+			}
+			Log.i("Async-Example", "result");
 			
 //			MediaStore.Images.Media.insertImage(getContentResolver(), result, "test", "test");
 //			Log.i("Async-Example", "saving complete");
 			
 			String path = Environment.getExternalStorageDirectory() + "/Room";
 			File folder = new File(path);
+			Log.i("Async-Example", "get path");
+			
 			
 //			File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Room");
 			
@@ -152,6 +168,7 @@ public class ImagesActivity extends Activity {
 			{
 				boolean success = false;
 				success = folder.mkdir();
+				Log.i("Async-Example", "create folder");
 				
 				if (!success)
 				{
