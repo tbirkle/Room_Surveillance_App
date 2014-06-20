@@ -28,10 +28,6 @@ byte server[] = { 192,168,1,200 };
 // that you want to connect to (port 80 is default for HTTP):
 EthernetClient client;
 
-String FF = String(255, HEX);
-String D8 = String(216, HEX);
-String jpeg = String(FF + D8);
-
 char *jpegCode = "FFD8";
 
 void setup() 
