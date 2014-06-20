@@ -12,6 +12,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+
+
 public class MainActivity extends Activity {
 
 	@Override
@@ -64,6 +92,11 @@ public class MainActivity extends Activity {
 
 	public void startImagesActivity(View view) {
 		Intent intent = new Intent(this, ImagesActivity.class);
+    	startActivity(intent);
+	}
+	
+	public void goToGallery(View view) {
+		Intent intent = new Intent(this, GalleryActivity.class);
     	startActivity(intent);
 	}
 	
