@@ -8,5 +8,12 @@
     <string name="getImage">get Image</string>
     <string name="gallery">Gallery</string>
     <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="no_image">No new image availible</string>
+    
+    <string name="register">Register</string>
+    <string name="register_number">Number</string>
+    <string name="register_number_summary">Please insert your phone number, if the field is empty.</string>
+    <string name="register_number_example">+49XXXXXXXXXXX</string>
+    <string name="loading">Loading &#8230;</string>
 
 </resources>

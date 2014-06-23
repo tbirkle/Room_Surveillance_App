@@ -12,7 +12,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    
+    <!-- permission for google cloud messaging -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    
+    
+    <permission
+        android:name="com.github.Room_Surveillance_App.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    
+    <uses-permission android:name="com.github.Room_Surveillance_App.permission.C2D_MESSAGE" />
 
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -35,6 +49,24 @@
             android:name="com.github.Room_Surveillance_App.GalleryActivity"
             android:label="@string/title_activity_gallery" >
         </activity>
+        <activity
+            android:name="com.github.Room_Surveillance_App.RegisterActivity"
+            android:label="@string/register" >
+        </activity>
+        
+         <receiver
+            android:name="com.github.Room_Surveillance_App.gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.github.Room_Surveillance_App" />
+            </intent-filter>
+        </receiver>
+        
+     	<service android:name="com.github.Room_Surveillance_App.gcm.GcmIntentService" />
+        
     </application>
 
 </manifest>

@@ -14,11 +14,14 @@ import android.os.Build;
 
 
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import com.github.Room_Surveillance_App.helpers.Preferences;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -41,9 +44,18 @@ import java.util.Date;
 
 
 public class MainActivity extends Activity {
+	
+	private Preferences prefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		prefs = new Preferences(getApplicationContext());
+		if (!prefs.isRegistered()) {
+			startActivity(new Intent(getApplicationContext(),
+					RegisterActivity.class));
+			finish();
+		}
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 

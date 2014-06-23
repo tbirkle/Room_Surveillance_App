@@ -33,16 +33,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
- 
-
-
-
-
-
-
-
-
-
 
 
 
@@ -79,14 +69,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.github.Room_Surveillance_App.gcm.GcmIntentService;
+
 
 public class ImagesActivity extends Activity {
+	
+	public static String incomingMessage;
 
 	private static final String LOG_TAG = "ImagesActivity";
 	private static final String TAG = "ImagesActivity";
 	
 	private String downloadUrl = "http://citiesofmigration.ca/wp-content/uploads/2011/02/test.jpg";
 	private String ftpUrl = "ftp://ftp.g8j.de/img/Tesla_Coil.JPG";
+	private Boolean toast = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +101,11 @@ public class ImagesActivity extends Activity {
 		
 	}
 	
-	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+	public void setMessage(String msg) {
+		incomingMessage = msg;
+	}
+	
+	public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
 		ImageView bmImage;
 		
@@ -179,8 +178,24 @@ public class ImagesActivity extends Activity {
 				ftp.enterLocalPassiveMode();
 				
 				try {
+					
+					String tmp = GcmIntentService.message;
+					Log.i("Async-Example", "image message: " + tmp);
+					String ftpPath = null;
+					
+					if (tmp == null) {
+						toast = true;
+						return null;
+					} else {
+						ftpPath = tmp.replace("ftp://ftp.g8j.de","");
+						Log.i("Async-Example", "ftpPath: " + ftpPath);
+					}
+				
+					
+					
 				out = new BufferedOutputStream(new FileOutputStream(file));
-				success = ftp.retrieveFile("/img/Tesla_Coil.JPG", out);
+				success = ftp.retrieveFile(ftpPath, out);
+//				success = ftp.retrieveFile("/img/Tesla_Coil.JPG", out);
 				Log.i("Async-Example", "downloading");
 				} finally {
 					if (out != null) {
@@ -258,7 +273,8 @@ public class ImagesActivity extends Activity {
 				bmImage.setImageBitmap(result);
 			} else
 			{
-				Toast.makeText(getApplicationContext(), "scheisse", Toast.LENGTH_LONG).show();;
+				Toast.makeText(getApplicationContext(), R.string.no_image, Toast.LENGTH_LONG).show();
+				
 			}
 			Log.i("Async-Example", "result");
 //			
