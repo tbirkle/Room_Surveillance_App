@@ -22,7 +22,7 @@ IPAddress ip(192,168,1,10);
 
 //byte server[] = { 74,125,26,147 };
 byte server[] = { 192,168,1,200 };
-
+byte ftpserver[] = {46,252,18,34};
 // Initialize the Ethernet client library
 // with the IP address and port of the server 
 // that you want to connect to (port 80 is default for HTTP):
@@ -30,6 +30,8 @@ EthernetClient client;
 
 char *jpegCode = "FFD8";
 
+//char *request = "GET /GetImage.cgi?Size=320x240 HTTP/1.1";
+ char request[]="GET /GetImage.cgi?Size=320x240 HTTP/1.1";
 void setup() 
 {
   // start Ethernet
@@ -47,7 +49,7 @@ void setup()
   
   delay(1000);
   Serial.println("connecting...");
-    Serial.println(jpegCode);
+
   
 
 
@@ -56,8 +58,9 @@ void setup()
   if (client.connect(server, 80)) {
     Serial.println("connected");
     // Make a HTTP request:
-    client.println("GET /GetImage.cgi?Size=320x240 HTTP/1.1");
-    //client.println("GET /avi/20140612/20oclock/202614s.jpg HTTP/1.1");
+    //client.print("GET /GetImage.cgi?Size=320x240 HTTP/1.1");
+    //client.println("GET /avi/20140612/20oclock/202614s.jpg HTTP/1.0");
+    client.print(request);
     client.println("Host: www.google.com");
     client.println("Connection: close");
     client.println();
@@ -71,26 +74,99 @@ void setup()
   
 }
 
-int first = 0;
+
+
+int found = 0;
+int counter = 0;
+int cameraDataReceived = 0;
+int ftpDataSent = 0;
+int ftpconnected = 0;
 void loop()
+{
+  if(cameraDataReceived == 0)
+  {
+    getImage();
+  }
+  else
+  {
+    Serial.println("ready");
+    if(ftpconnected == 0)
+    {
+      connectToFTP();
+    }
+    else
+    {
+      sendDataToFTP();
+    }
+  }
+}
+
+void connectToFTP()
+{
+  if (client.connect(ftpserver, 21)) {
+    Serial.println("ftpconnected");
+    client.println(F("USER 187687-rs"));
+    client.println(F("PASS Dp3Jp23SS9"));
+    
+    myFile = SD.open("test.jpg", FILE_READ);
+    ftpconnected = 1;
+  } 
+  else {
+    // kf you didn't get a connection to the server:
+    Serial.println("connection failed");
+  }
+}
+
+void sendDataToFTP()
+{
+  while(myFile.available())
+  {
+    char c = myFile.read();
+    client.write(c);
+  }
+  
+  // if the server's disconnected, stop the client:
+  if (!client.connected()) {
+    Serial.println();
+    Serial.println("ftpdisconnecting.");
+    client.stop();
+
+    // do nothing forevermore:
+    myFile.close();
+    Serial.println("done");
+    ftpDataSent = 1;
+  }
+}
+
+void getImage()
 {
    // if there are incoming bytes available 
   // from the server, read them and print them:
   if (client.available()) {
-    
-    if(first != 1)
-    {
-      first = 1;
-    //  client.find("Content-Type: image/jpeg<br>");
-      //client.find("<br><br>");
-      //myFile.write(jpeg);
-      client.find("\r\n\r\n");
-    }
 
-    //myFile.write(client.read());
     char c = client.read();
-    myFile.write(c);
-    Serial.print(c);
+    
+    
+    if( found == 1)
+    {
+      myFile.write(c);
+      Serial.print(c);
+    }
+    if(found == 0)
+    {
+      if(c == '\r' || c == '\n')
+      {
+        counter++;
+        if(counter == 4)
+        {
+          found = 1;
+        }
+      }
+      else
+      {
+        counter = 0;
+      }
+    }
   }
 
   // if the server's disconnected, stop the client:
@@ -102,6 +178,8 @@ void loop()
     // do nothing forevermore:
     myFile.close();
     Serial.println("done");
-    while(true);
+    cameraDataReceived = 1;
+    //while(dataSent == 0);
   }
+  
 }
