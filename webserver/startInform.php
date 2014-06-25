@@ -9,12 +9,16 @@
 //$path = "".getcwd()."/inform.php?message=".$newfilename;
 
 //exec($path);
-$filename = getcwd() . "/img/test.jpg";
+$filename = getcwd() . "/test.jpg";
+echo "Hello";
 if(file_exists($filename))
 {
-	$newfilename = getcwd() . "/img/img_" . date('m-d-Y-His') . ".jpg";
+	echo "copy";
+	$folder = "/img/img_" . date('m-d-Y-His') . ".jpg";
+	$newfilename = getcwd() . $folder;
 	rename($filename, $newfilename);
-	$_GET['message'] = $newfilename;
+	//$_GET['message'] = $newfilename;
+	$_GET['message'] = $folder;
 	include('inform.php');
 }
 
