@@ -52,8 +52,8 @@ EthernetClient dclient;
 char *jpegCode = "FFD8";
 
 //char *request = "GET /GetImage.cgi?Size=320x240 HTTP/1.1";
- char request[]="GET /GetImage.cgi?Size=320x240 HTTP/1.1";
-
+ char request[]="GET /GetImage.cgi?Size=800x600 HTTP/1.1";
+// 320x240 640x480 800x600
 char outBuf[128];
 char outCount;
 char fileName[13] = "test.jpg";
