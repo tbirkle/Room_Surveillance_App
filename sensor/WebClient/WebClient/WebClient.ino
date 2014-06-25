@@ -192,7 +192,7 @@ int counter = 0;
     client.println("Host: www.google.com");
     client.println("Connection: close");
     client.println();
-    //SD.remove("test.jpg");
+    SD.remove("test.jpg");
     myFile = SD.open("test.jpg", FILE_WRITE);
   } 
   else {
@@ -300,7 +300,10 @@ byte doFTP()
   //client.println(F("PASS test"));
 
   if(!eRcv()) return 0;
-
+  
+  client.print(F("TYPE I"));
+  //if(!eRcv()) return 0;
+  
   client.println(F("SYST"));
 
   if(!eRcv()) return 0;
@@ -340,7 +343,7 @@ byte doFTP()
     return 0;
   }
 
-  //client.print(F("TYPE I"));
+  //client.print(F("TYPE A T"));
   
   
   
