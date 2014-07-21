@@ -1,0 +1,38 @@
+\section[Development environment - Team]{Development environment}
+For the develompement of the area surveillance app, we used different tools and technologies to enhance the developement process.
+
+\subsection{Tools}
+\begin{itemize}
+\item Arduino IDE. Easy to use IDE to upload the software to the Arduino UNO.
+\item Eclipse with adt plugin. Eclipse is an easy to use IDE for Android developement
+\item GIT. Version control system.
+\item Wireshark. We needed wireshark to evaluate the communication from the camera over the cgi script.
+\end{itemize}
+
+\subsection{Technologies}
+
+\textbf{CGI - Common Gateway Interface} \\
+The common gateway interface is a method to generate dynamic content on web pages or web applications. They are normally written in a scripting language like shell. In this project the camera provides us a set of cgi scripts to get images or adjust the camera.
+
+\textbf{PHP - PHP: Hypertext Preprocessor} \\
+''PHP is a widely-used open source general-purpose scripting language that is especially suited for web development and can be embedded into HTML'' \cite{php}. We use PHP to inform the google cloud messaging service if there's a new image on our web server.
+
+
+\textbf{FTP - File Transfer Protocol} \\
+‘’The File Transfer Protocol is a standard network protocol used to transfer computer files from one host to another host over a TCP-based network, such as the Internet''. In our system the arduino uses the ftp protocol to send the image over a passive ftp connection to the web server.
+
+\textbf{Android} \\
+Android is a operating system for mobile devices. It is based on the linux kernel and so android is open source. For an easy development we used different external libraries such as google play services or picasso. Picasso allows simple and easy image loading in our application. Google play services is needed for the google cloud messaging service and we also had to include the gcm library.
+
+
+\textbf{Google Cloud Messaging Service} \\
+One key aspect of the android app is the google cloud messaging service. We used this technology because it is easy to implement and we needed a notification system. Otherwise our app had to poll all the time and this would be very energy inefficient. With the gcm we have now a push notification whenever our web server receives a new image.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/usecase.png}
+	\caption[Google Cloud Messaging]{This image shows the structure of the google cloud messaging.}
+	\label{gcm}
+\end{figure}
+
+As you can see in figure \ref{gcm} the android device sends his senderID and his applicationID to the google cloud messaging service server for registration. In the second step, the gcm server sends a registrationID back to the device. With this registrationID, the mobile phone can be registered from our server. Therefor the device sends the registrationID to the server (point three in the picture \ref{gcm}). The registrationID will be stored in a database for quicker access. This id is important, because whenever an event occours and a push notification is needed, our server sends a message in a string to the google cloud messaging server along with the registrationID (a). Every android device which is registered in the gcm server under the same registrationID will be notified (b). So it is possible to send the same notification and message to various android devices. This will make the spreading of the taken image easier. For example if more than one person lives in the house where motion was detected or the picture can be send to more than one facility manager.

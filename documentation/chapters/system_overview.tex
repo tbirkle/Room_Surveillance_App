@@ -1,0 +1,29 @@
+\section[System description - Team]{System description}
+In the next paragraph we will explain the system architecture and the components we used in the project.
+
+\subsection{Overview}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/overview.png}
+	\caption[System overview]{This image shows the an overview of the system}
+	\label{overview}
+\end{figure}
+
+In the image \ref{overview} you can see the system and its components. 
+There are two parts. One part in the local area network connected with ethernet and the other part in the internet. We are using an Arduino UNO and a passive infrared sensor to detect movements. To get the images we use the LUPUS LE950 webcam. Also we need a web server to store the images in the internet and a mobile phone to download them.
+
+\subsection{Data flow}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/dataflow.png}
+	\caption[System data flow]{This image shows the data flow of the system}
+	\label{dataflow}
+\end{figure}
+
+In the figure \ref{dataflow} you can see the data flow of the system.
+Firstly the Arduino UNO senses movement with the PIR-sensor. If the the sensor tells the arduino that it detected movement, the Arduino sends a request to the camera, gets an image and stores it on the Arduino’s SD-card.
+%In the instruction manual there are few different CGI commands, so we asked the company if %they could provide us with more information about the camera and more CGI commands. We %received a list with commands but they were notvery usefull. So it  was more clear, that we %needed some more open source kind of stuff.
+
+Then the Arduino sends the image to the web server via an FTP connection. After the image was uploaded to the web server, a php script renames the picture with a timestamp and sends a notification to the google cloud messaging server. Everyone who is registered in the gcm server will receive a notification on their mobile phones. So our app doesn’t need to poll all the time if there is new data available. This saves energy and therefore the battery can last longer. Within the notification the url for the download is also transmitted to the mobile phone. The image is on a ftp server and is easy to download.
+
+\subsection{UML}
