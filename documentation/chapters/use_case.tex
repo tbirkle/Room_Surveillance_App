@@ -1,0 +1,43 @@
+\section[Use Case - Team]{Use case}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/usecase.png}
+	\caption[Use-case diagram]{This image shows the use-case diagram of the area surveillance system}
+	\label{usecase}
+\end{figure}
+
+
+As we described beforehand in the abstract topic you can see in the use-case diagram \ref{usecase} how the behaviour of our area surveillance system works.
+Android App:
+\begin{itemize}
+\item receive notification: The app receives a notification from the gcm over our webserver. The notification contains the image URL.
+\item download images: With the provided URL the user can download the image.
+\item store data: After the image was downloaded, it will be stored on the mobile device
+\item show gallery: If the user wants, he can review all the older pictures he downloaded earlier.
+\end{itemize}
+
+Webserver:
+\begin{itemize}
+\item notifiy android: The webserver receives a notification from the arduino to notify the android app.
+\item store data: The webserver stores the images, received from the arduino, on its data store.
+\end{itemize}
+
+Surveillance System:
+\begin{itemize}
+\item retrieve sensor data: after the PIR sensor gets triggered, he sends a signal to the arduino to take a picture
+\item take picture: if the sensor was triggered, the camera takes a picture.
+\item receive image: the arduino will receive an image over the CGI script.
+\item store data: after the image is taken, the arduino saves it on the sd card.
+\item upload data: the saved image will be uploaded to the ftp server.
+\item notify webserver: the arduino sends a notification to the webserver and triggers the php script.
+
+\end{itemize}
+
+
+Other use cases as described in the abstract could be a door camera system. The system gets activated if someone rings the bell or is near the door. So older people or wheelchair drivers can see whos there. We are aware that most older people doesn’t have mobile phones so we could show the image on a tablet or a big screen in the house.
+
+Another use case could be for wildlife watching. You could mount the camera and the IR sensor on a tree or another surface and it will take pictures of the animals who cross the sensor.
+
+
+
