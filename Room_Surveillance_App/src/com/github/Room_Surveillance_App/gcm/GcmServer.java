@@ -33,15 +33,13 @@ public enum GcmServer {
 		final Preferences prefs = new Preferences(context);
 
 		List<NameValuePair> getPrarams = new ArrayList<NameValuePair>();
-		getPrarams.add(new BasicNameValuePair("number", prefs.getNumber()));
+		getPrarams.add(new BasicNameValuePair("number", prefs.number()));
 		getPrarams.add(new BasicNameValuePair("gcm", regId));
 
-		makeHttpRequest("http://rs.g8j.de/register.php", "GET", getPrarams);
+		sendRequest("http://rs.g8j.de/register.php", "GET", getPrarams);
 	}
 
-	// function get json from url
-	// by making HTTP POST or GET mehtod
-	public JSONObject makeHttpRequest(String url, String method,
+	public JSONObject sendRequest(String url, String method,
 			List<NameValuePair> params) {
 		InputStream is = null;
 		JSONObject jObj = null;
@@ -91,17 +89,13 @@ public enum GcmServer {
 			is.close();
 			json = sb.toString();
 		} catch (Exception e) {
-			Log.e("Buffer Error", "Error converting result " + e.toString());
 		}
 
-		// try parse the string to a JSON object
 		try {
 			jObj = new JSONObject(json);
 		} catch (JSONException e) {
-			Log.e("JSON Parser", "Error parsing data " + e.toString());
 		}
 
-		// return JSON String
 		return jObj;
 	}
 }

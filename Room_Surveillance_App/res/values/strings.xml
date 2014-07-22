@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <string name="app_name">Room_Surveillance_App</string>
+    <string name="app_name">Area Surveillance App</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_images">ImagesActivity</string>
+    <string name="title_activity_images">Download Image</string>
     <string name="action_settings">Settings</string>
     <string name="getImage">get Image</string>
     <string name="gallery">Gallery</string>
-    <string name="title_activity_gallery">GalleryActivity</string>
-    <string name="no_image">No new image availible</string>
-    
+    <string name="title_activity_gallery">Gallery</string>
+    <string name="no_image">No new image available</string>
     <string name="register">Register</string>
     <string name="register_number">Number</string>
     <string name="register_number_summary">Please insert your phone number, if the field is empty.</string>
     <string name="register_number_example">+49XXXXXXXXXXX</string>
     <string name="loading">Loading &#8230;</string>
+    <string name="title_activity_big_picture">BigPictureActivity</string>
 
 </resources>

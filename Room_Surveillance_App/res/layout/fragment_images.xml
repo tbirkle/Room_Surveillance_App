@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,28 +8,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.github.Room_Surveillance_App.ImagesActivity$PlaceholderFragment" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView1"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:onClick="startDownload"
-        android:text="Button" />
+        android:text="Download image" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="19dp"
-        android:contentDescription="hoffentlich ein bild" />
+        android:layout_marginTop="52dp"
+        android:src="@drawable/white" />
 
-</LinearLayout>
+</RelativeLayout>

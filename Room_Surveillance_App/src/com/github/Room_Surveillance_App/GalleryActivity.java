@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 public class GalleryActivity extends Activity {
 
 	Integer[] pics = {R.drawable.ic_launcher};
+//	public static File bigPictureFile;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,9 @@ public class GalleryActivity extends Activity {
 		    // Get the image URL for the current position.
 //		    String url = getItem(position);
 		    final File fileToLoad = getItem(position);
+		    
+//		    bigPictureFile = fileToLoad;
+		    
 		    Log.i("Async-Example", "get file position " + position);
 		    
 		    Log.i("Async-Example", "fileToLoad: " + fileToLoad.getPath());
@@ -114,6 +118,10 @@ public class GalleryActivity extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					Log.i("Async-Example", "onclick listener");
+					
+					
+//					goToBigPicture(v);
+					
 					ImageView iv = (ImageView) findViewById(R.id.bigView);
 //					iv.setImageResource(R.drawable.no_photo);
 					
@@ -129,11 +137,12 @@ public class GalleryActivity extends Activity {
 						
 					} else {
 						iv.setEnabled(false);
-						iv.setImageResource(R.drawable.no_photo);
+						iv.setImageResource(R.drawable.white);
 						Log.i("Async-Example", "Imageview disabled");
 						isBig = false;
 					}
 				}
+
 			});
 		  
 
@@ -215,6 +224,7 @@ public class GalleryActivity extends Activity {
 			
 			return rootView;
 		}
+		
 	}
 
 }

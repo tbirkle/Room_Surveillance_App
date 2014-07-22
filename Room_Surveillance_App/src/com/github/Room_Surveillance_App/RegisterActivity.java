@@ -41,8 +41,8 @@ public class RegisterActivity extends Activity {
 		registerButton = (Button) findViewById(R.id.register_button);
 
 		// Try to get saved number or try to get it from the sim card
-		if (!prefs.getNumber().isEmpty()) {
-			registerNumber.setText(prefs.getNumber());
+		if (!prefs.number().isEmpty()) {
+			registerNumber.setText(prefs.number());
 		} else {
 			registerNumber.setText(((TelephonyManager) getApplicationContext()
 					.getSystemService(Context.TELEPHONY_SERVICE))
@@ -59,12 +59,12 @@ public class RegisterActivity extends Activity {
 				// Check if user filled the form
 				if (number.trim().length() > 0) {
 					// Save number
-					prefs.setNumber(number);
+					prefs.number(number);
 					// Check if regId is already saved or the app version
 					// changed
-					if (prefs.getRegId().isEmpty()
-							|| prefs.getAppVersion() != prefs
-									.getCurrentAppVersion()) {
+					if (prefs.regId().isEmpty()
+							|| prefs.appVersion() != prefs
+									.getCurrentVersion()) {
 						// Register the user in background
 						new RegisterTask().execute();
 					}
@@ -103,8 +103,8 @@ public class RegisterActivity extends Activity {
 				gcm = GoogleCloudMessaging.getInstance(context);
 				String regId = gcm.register("1069530446513");
 
-				prefs.setRegId(regId);
-				prefs.setAppVersion(prefs.getCurrentAppVersion());
+				prefs.regId(regId);
+				prefs.appVersion(prefs.getCurrentVersion());
 
 				// Register device with own server
 				GcmServer.INSTANCE.register(getApplicationContext(), regId);

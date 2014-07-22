@@ -1,30 +1,19 @@
 package com.github.Room_Surveillance_App;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.SocketException;
-import java.net.URL;
 import java.net.URLConnection;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.format.Time;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,32 +30,8 @@ import android.widget.Toast;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.ByteArrayBuffer;
-
-import com.squareup.picasso.Picasso;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
-
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.github.Room_Surveillance_App.gcm.GcmIntentService;
@@ -75,13 +40,8 @@ import com.github.Room_Surveillance_App.gcm.GcmIntentService;
 public class ImagesActivity extends Activity {
 	
 	public static String incomingMessage;
-
-	private static final String LOG_TAG = "ImagesActivity";
-	private static final String TAG = "ImagesActivity";
 	
 	private String downloadUrl = "http://citiesofmigration.ca/wp-content/uploads/2011/02/test.jpg";
-	private String ftpUrl = "ftp://ftp.g8j.de/img/Tesla_Coil.JPG";
-	private Boolean toast = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -146,16 +106,12 @@ public class ImagesActivity extends Activity {
 			
 //########################################################
 			
-			String urldisplay = urls[0];
 			Bitmap mIcon11 = null;
-			InputStream in = null;
 			
 			String ftpServer = "ftp.g8j.de";
 			String ftpUser = "187687-rs";
 			String ftpPass = "Dp3Jp23SS9";
-			int ftpPort = 21;
 			
-			URL url = null;
 			URLConnection ucon = null;
 			
 			FTPClient ftp = null;
@@ -180,22 +136,11 @@ public class ImagesActivity extends Activity {
 				try {
 					
 					String tmp = GcmIntentService.message;
-					Log.i("Async-Example", "image message: " + tmp);
-					String ftpPath = null;
-					
-					if (tmp == null) {
-						toast = true;
-						return null;
-					} else {
-						ftpPath = tmp.replace("ftp://ftp.g8j.de","");
-						Log.i("Async-Example", "ftpPath: " + ftpPath);
-					}
-				
+					Log.i("Async-Example", "image message: " + tmp);				
 					
 					
 				out = new BufferedOutputStream(new FileOutputStream(file));
-				success = ftp.retrieveFile(ftpPath, out);
-//				success = ftp.retrieveFile("/img/Tesla_Coil.JPG", out);
+				success = ftp.retrieveFile(tmp, out);
 				Log.i("Async-Example", "downloading");
 				} finally {
 					if (out != null) {
@@ -226,37 +171,13 @@ public class ImagesActivity extends Activity {
 				}
 				
 				
-				
-				
-//				
-////				in = new java.net.URL(urldisplay).openStream();
-//				Log.i("Async-Example", "Stream get input stream");
-//				
-//				Log.i("Async-Example", "open Stream");
-//				mIcon11 = BitmapFactory.decodeStream(in);
 				Log.i("Async-Example", "going to decode file");
 				mIcon11 = BitmapFactory.decodeFile(file.getAbsolutePath());//"/sdcard/Room/"+ exactPath);
 				if (mIcon11 == null)
 				{
 					Log.i("Async-Example", "scheisse wars");
 				}
-//				Log.i("Async-Example", "decode Stream");
-//			} catch (MalformedURLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			finally {
-//				try {
-//					in.close();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			
+
 			Log.i("Async-Example", "doInBackground returning");
 			return mIcon11;
 		}

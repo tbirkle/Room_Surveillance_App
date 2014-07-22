@@ -11,64 +11,60 @@ import com.github.Room_Surveillance_App.MainActivity;
 public class Preferences {
 
 	private static final String NUMBER = "number";
-	private static final String REG_ID = "regId";
-	private static final String APP_VERSION = "appVersion";
+	private static final String ID = "ID";
+	private static final String VERSION = "Version";
 
 	private final Context context;
-	private final SharedPreferences prefs;
+	private final SharedPreferences sharedPrefs;
 	private final SharedPreferences.Editor editor;
 
 	public Preferences(Context context) {
 		this.context = context;
-		prefs = context.getSharedPreferences(
+		sharedPrefs = context.getSharedPreferences(
 				MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-		editor = prefs.edit();
+		editor = sharedPrefs.edit();
 	}
 
-	public String getNumber() {
-		return prefs.getString(NUMBER, "");
+	public String number() {
+		return sharedPrefs.getString(NUMBER, "");
 	}
 
-	public void setNumber(String number) {
+	public void number(String number) {
 		editor.putString(NUMBER, number);
 		editor.commit();
 	}
 
-	public String getRegId() {
-		return prefs.getString(REG_ID, "");
+	public String regId() {
+		return sharedPrefs.getString(ID, "");
 	}
 
-	public void setRegId(String number) {
-		editor.putString(REG_ID, number);
+	public void regId(String number) {
+		editor.putString(ID, number);
 		editor.commit();
 	}
 
-	public int getAppVersion() {
-		return prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
+	public int appVersion() {
+		return sharedPrefs.getInt(VERSION, Integer.MIN_VALUE);
 	}
 
-	public void setAppVersion(int appVersion) {
-		editor.putInt(APP_VERSION, appVersion);
+	public void appVersion(int appVersion) {
+		editor.putInt(VERSION, appVersion);
 		editor.commit();
 	}
 
-	public int getCurrentAppVersion() {
+	public int getCurrentVersion() {
 		try {
 			PackageInfo packageInfo = context.getPackageManager()
 					.getPackageInfo(context.getPackageName(), 0);
 			return packageInfo.versionCode;
 		} catch (NameNotFoundException e) {
-			Log.d("RegisterActivity",
-					"I never expected this! Going down, going down!" + e);
 			throw new RuntimeException(e);
 		}
 	}
 
 	public boolean isRegistered() {
-		// Check if number and regId is set and if the current app version is
-		// the same like the app version when it was registered
-		if (getRegId().isEmpty() || getNumber().isEmpty()
-				|| getAppVersion() != getCurrentAppVersion())
+		if (regId().isEmpty() || number().isEmpty()
+				|| appVersion() != getCurrentVersion())
 			return false;
 		else
 			return true;

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.github.Room_Surveillance_App.ImagesActivity;
 import com.github.Room_Surveillance_App.MainActivity;
 import com.github.Room_Surveillance_App.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -19,11 +18,9 @@ public class GcmIntentService extends IntentService {
 	public static String message = null;
 	
 
-	public static final String BROADCAST_ACTION = "PositionUpdated";
-
-	public static final int NOTIFICATION_ID = 1;
-	private NotificationManager mNotificationManager;
-	NotificationCompat.Builder builder;
+	public static final int id = 1;
+	private NotificationManager notificationManager;
+	NotificationCompat.Builder notificationBuilder;
 
 	public GcmIntentService() {
 		super("GcmIntentService");
@@ -32,17 +29,17 @@ public class GcmIntentService extends IntentService {
 	//receive message from server
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		Bundle extras = intent.getExtras();
+		Bundle bundleExtras = intent.getExtras();
 		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 
 		String messageType = gcm.getMessageType(intent);
 
-		if (!extras.isEmpty()) {
+		if (!bundleExtras.isEmpty()) {
 			if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-				sendNotification("Motion detected: " + extras.get("message").toString());
+				notify("Motion detected!");
 				
 				
-				message = extras.get("message").toString();
+				message = bundleExtras.get("message").toString();
 				Log.i("Async-Example", "notification received: " + message);
 			}
 		}
@@ -50,8 +47,8 @@ public class GcmIntentService extends IntentService {
 	}
 
 	//notification in notificationbar
-	private void sendNotification(String msg) {		
-		mNotificationManager = (NotificationManager) this
+	private void notify(String msg) {		
+		notificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
@@ -59,13 +56,13 @@ public class GcmIntentService extends IntentService {
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this).setSmallIcon(R.drawable.ic_launcher)
-				.setContentTitle("UbiComProject")
+				.setContentTitle("Area Surveillance App")
 				.setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
 				.setContentText(msg)
 				.setAutoCancel(true);
 
 		mBuilder.setContentIntent(contentIntent);
-		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+		notificationManager.notify(id, mBuilder.build());
 	}
 
 }
