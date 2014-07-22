@@ -34,8 +34,8 @@ left=2cm, right=2cm, top=2cm, bottom=2 cm]{geometry}
 
 
 \usepackage[utf8]{inputenc}
-\usepackage[german]{babel}   % deutsche Silbentrennung
-\selectlanguage{german}   % damit Table Of Contents Inhaltsverzeichnis genannt wird
+%\usepackage[german]{babel}   % deutsche Silbentrennung
+%\selectlanguage{german}   % damit Table Of Contents Inhaltsverzeichnis genannt wird
 
 \usepackage{geometry}   % Seitenränder einstellbar
 \usepackage{textcomp}   % Sonderzeichen, wie Eurosymbol
@@ -101,9 +101,7 @@ left=2cm, right=2cm, top=2cm, bottom=2 cm]{geometry}
 % ---------
 \begin{absaetze}
 \include{chapters/titlepage}
-
-
-
+\include{chapters/abstract}
 
 
 \end{absaetze}
@@ -122,7 +120,7 @@ left=2cm, right=2cm, top=2cm, bottom=2 cm]{geometry}
 % Inhaltsverzeichnis anzeigen
 % ---------------------------
 \setcounter{page}{1}
-%\tableofcontents
+\tableofcontents
 %\newpage
 %\listoffigures % Abbildungsverzeichnis
 %\listoftables
@@ -135,7 +133,13 @@ left=2cm, right=2cm, top=2cm, bottom=2 cm]{geometry}
 % ---------
 
 \begin{absaetze}
-\include{chapters/project_description}
+\include{chapters/state_of_the_art}
+\include{chapters/goals}
+\include{chapters/use_case}
+\include{chapters/system_overview}
+\include{chapters/development}
+\include{chapters/gui}
+\include{chapters/conclusion}
 
 \end{absaetze}
 
@@ -144,8 +148,8 @@ left=2cm, right=2cm, top=2cm, bottom=2 cm]{geometry}
 %\addcontentsline{toc}{section}{Literatur}
 %\bibliographystyle{gerabbrv}
 %\bibliographystyle{alpha}
-%\bibliographystyle{plain}
-%\bibliography{bib/references}
+\bibliographystyle{plain}
+\bibliography{bib/references}
 
 \renewcommand{\thepage}{}
 \end{document}

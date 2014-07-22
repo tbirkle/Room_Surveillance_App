@@ -26,20 +26,16 @@ File myFile;
 
 byte mac[] = { 0x90, 0xA2, 0xDA, 0x0F, 0x15, 0x9E };
 IPAddress dnServer(141,37,120,101);
-IPAddress gateway(141,37,28,254);
+//IPAddress gateway(141,37,28,254);
+IPAddress gateway(141,37,179,254);
+
 IPAddress subnet(255,255,252,0);
 
-//IPAddress ip(192,168,1,10);
-IPAddress ip(141,37,31,128);
 
-//IPAddress server(74,125,26,147);
-//char server[] = "www.google.de";
+IPAddress ip(141,37,179,128);
 
-//byte server[] = { 74,125,26,147 };
-byte server[] = { 141,37,31,129 };
+byte server[] = { 141,37,179,129 };
 byte ftpserver[] = {46,252,18,34};
-//byte ftpserver[] = {141,37,31,115};
-//byte ftpserver[] = {144,76,167,69};
 
 char webserver[] = "rs.g8j.de";
 // Initialize the Ethernet client library
@@ -51,7 +47,7 @@ EthernetClient dclient;
 
 char *jpegCode = "FFD8";
 
-//char *request = "GET /GetImage.cgi?Size=320x240 HTTP/1.1";
+
  char request[]="GET /GetImage.cgi?Size=800x600 HTTP/1.1";
 // 320x240 640x480 800x600
 char outBuf[128];
@@ -61,8 +57,6 @@ char fileName[13] = "test.jpg";
  
 void setup() 
 {
-  // start Ethernet
-  //Ethernet.begin(mac, ip, dnServer, gateway, subnet);
   pinMode(10, OUTPUT);
   pinMode(PIR_INPUT_PIN, INPUT);
   pinMode(LED_PIN, OUTPUT);
@@ -76,12 +70,10 @@ void setup()
   Serial.println("SD initialization done.");
   //Ethernet.begin(mac, ip);
   Ethernet.begin(mac, ip, dnServer, gateway, subnet);
-  Serial.begin(9600);
   
+  Serial.begin(9600);
   delay(1000);
   Serial.println("calibrating...");
-
-
   
   delay(CALIBRATION_TIME * 1000); // Delay for the calibration of the PIR
   debug("start sensing")
@@ -94,8 +86,6 @@ int cameraDataReceived = 0;
 int motion = 0;
 void loop()
 {
-  //debug("2000")
-  //delay(2000);
   int val = 0;
   val = digitalRead(PIR_INPUT_PIN);
   if(val == LOW && motion != 1)
@@ -107,7 +97,6 @@ void loop()
   
   if(motion == 1)
   {
-    //debug("Motion function")
     motionDetected();
   }
 
@@ -125,7 +114,6 @@ void motionDetected()
     if(doFTP()) Serial.println(F("FTP OK"));
     else Serial.println(F("FTP FAIL"));
   
-    
     sendPushMessage();
     motion = 0;
     cameraDataReceived = 0;
@@ -158,8 +146,6 @@ void disconnectFromServer()
   clientphp.stop();
 }
 
-
-
 void sendPushMessage()
 {
   if(!connectToWebserver(webserver, HTTPPORT))
@@ -172,11 +158,6 @@ void sendPushMessage()
   disconnectFromServer();
 }
 
-
-
-
-
-
 void getImage()
 {
   int found = 0;
@@ -185,9 +166,6 @@ int counter = 0;
   // if you get a connection, report back via serial:
   if (client.connect(server, 80)) {
     Serial.println("connected");
-    // Make a HTTP request:
-    //client.print("GET /GetImage.cgi?Size=320x240 HTTP/1.1");
-    //client.println("GET /avi/20140612/20oclock/202614s.jpg HTTP/1.0");
     client.print(request);
     client.println("Host: www.google.com");
     client.println("Connection: close");
@@ -204,7 +182,6 @@ int counter = 0;
    while (client.available()) {
 
     char c = client.read();
-    
     
     if( found == 1)
     {
@@ -243,19 +220,7 @@ int counter = 0;
   
 }
 
-
-
-
-
-
-
-
-
-
-
-
 File fh;
-
 
 byte doFTP()
 {
@@ -270,9 +235,6 @@ byte doFTP()
 
   Serial.println(F("SD opened"));
 
-
-
-
   if (client.connect(ftpserver,21)) {
   Serial.println(F("Command connected"));
   } 
@@ -282,22 +244,13 @@ byte doFTP()
     return 0;
   }
 
-  //if(!connectToWebserver(ftpserver, FTPPORT))
-  //{
-  //  fh.close();
-  //}
-
   if(!eRcv()) return 0;
 
   client.println(F("USER 187687-rs"));
-  //client.println(F("USER ftpuser"));
-  //client.println(F("USER ubiwtf_1234"));
-
 
   if(!eRcv()) return 0;
 
   client.println(F("PASS Dp3Jp23SS9"));
-  //client.println(F("PASS test"));
 
   if(!eRcv()) return 0;
   
@@ -342,23 +295,15 @@ byte doFTP()
     fh.close();
     return 0;
   }
-
-  //client.print(F("TYPE A T"));
-  
-  
   
   client.print(F("STOR "));
   client.println(fileName);
   
-  
-
-
   if(!eRcv())
   {
     dclient.stop();
     return 0;
   }
-
 
   Serial.println(F("Writing"));
 
@@ -378,11 +323,6 @@ byte doFTP()
       
       clientCount = 0;
     }
-    //char c = fh.read();
-    //Serial.print(c);
-    //dclient.print(c);
-    
-    
   }
 
   if(clientCount > 0)
@@ -464,3 +404,4 @@ void efail()
   fh.close();
   Serial.println(F("SD closed"));
 }
+
