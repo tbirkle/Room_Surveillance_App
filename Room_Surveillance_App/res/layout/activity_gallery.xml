@@ -3,5 +3,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.Room_Surveillance_App.GalleryActivity"
+    tools:context="com.github.Area_Surveillance_App.GalleryActivity"
     tools:ignore="MergeRootFrame" />

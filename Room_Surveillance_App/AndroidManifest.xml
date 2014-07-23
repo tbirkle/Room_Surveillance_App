@@ -31,7 +31,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.github.Room_Surveillance_App.MainActivity"
+            android:name="com.github.Area_Surveillance_App.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -42,24 +42,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.github.Room_Surveillance_App.ImagesActivity"
+            android:name="com.github.Area_Surveillance_App.ImagesActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_images"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.github.Room_Surveillance_App.GalleryActivity"
+            android:name="com.github.Area_Surveillance_App.GalleryActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_gallery"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.github.Room_Surveillance_App.RegisterActivity"
+            android:name="com.github.Area_Surveillance_App.RegisterActivity"
             android:label="@string/register" >
         </activity>
 
         <receiver
-            android:name="com.github.Room_Surveillance_App.gcm.GcmBroadcastReceiver"
+            android:name="com.github.Area_Surveillance_App.gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -69,10 +69,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.github.Room_Surveillance_App.gcm.GcmIntentService" />
+        <service android:name="com.github.Area_Surveillance_App.gcm.GcmIntentService" />
 
         <activity
-            android:name="com.github.Room_Surveillance_App.BigPictureActivity"
+            android:name="com.github.Area_Surveillance_App.BigPictureActivity"
             android:label="@string/title_activity_big_picture" >
         </activity>
     </application>
